@@ -1,37 +1,63 @@
 import update from "immutability-helper";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "./Card.jsx";
+import axios from "axios";
 const style = {
   width: 400,
 };
 export const Container = () => {
+  const [items, setItems] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [isLoaded, setisLoaded] = useState(false);
+  const [currentPage, setcurrentPage] = useState(0);
+  const headers = {
+    "Content-Type": "application/json",
+    "x-project": "cmVhY3R0YXNrOjVmY2h4bjVtOGhibzZqY3hpcTN4ZGRvZm9kb2Fjc2t5ZQ==",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  };
+  const body = {
+    payload: {},
+    page: currentPage,
+    limit: 10,
+  };
+  const handlePageCount = (e) => {
+    e.preventDefault();
+    if (e.target.innerText == "Prev") {
+      if (currentPage == 1) {
+        setcurrentPage(10);
+      } else {
+        setcurrentPage(currentPage - 1);
+      }
+    } else if (e.target.innerText == "Next") {
+      if (currentPage == 10) {
+        setcurrentPage(1);
+      } else {
+        setcurrentPage(currentPage + 1);
+      }
+    }
+    console.log("event", e);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axios
+        .post(
+          "https://reacttask.mkdlabs.com/v1/api/rest/video/PAGINATE",
+          body,
+          {
+            headers,
+          }
+        )
+        .then((response) => {
+          console.log("getData", response.data);
+          setItems(response.data.list);
+        });
+    };
+
+    getData();
+  }, [currentPage]);
+
   {
-    const [cards, setCards] = useState([
-      {
-        id: 1,
-        text: "Write a cool JS library",
-        image: "https://wallpaperaccess.com/full/252570.jpg",
-        desc: "something is worth nothing if something and nothing have the same value, says no one ever!",
-        author: "shakeel",
-        likes: "25",
-      },
-      {
-        id: 2,
-        text: "Make it generic enough",
-        image: "https://wallpaperaccess.com/full/252570.jpg",
-        desc: "something is worth nothing if something and nothing have the same value, says no one ever!",
-        author: "shakeel",
-        likes: "25",
-      },
-      {
-        id: 3,
-        text: "Write README",
-        image: "https://wallpaperaccess.com/full/252570.jpg",
-        desc: "something is worth nothing if something and nothing have the same value, says no one ever!",
-        author: "shakeel",
-        likes: "25",
-      },
-    ]);
     const moveCard = useCallback((dragIndex, hoverIndex) => {
       setCards((prevCards) =>
         update(prevCards, {
@@ -42,24 +68,28 @@ export const Container = () => {
         })
       );
     }, []);
-    const renderCard = useCallback((card, index) => {
+    const renderCard = useCallback((items, index) => {
       return (
         <Card
-          key={card.id}
-          image={card.image}
-          desc={card.desc}
-          author={card.author}
-          likes={card.likes}
+          key={items.id}
+          image={items.photo}
+          desc={items.title}
+          author={items.username}
+          likes={items.like}
           index={index}
-          id={card.id}
-          text={card.text}
+          id={items.id}
           moveCard={moveCard}
         />
       );
     }, []);
+    console.log("items:", items);
     return (
       <>
-        <div>{cards.map((card, i) => renderCard(card, i))}</div>
+        <div>
+          {items.length > 0 && items.map((item, i) => renderCard(item, i))}
+        </div>
+        <button onClick={(e) => handlePageCount(e)}>Prev</button>
+        <button onClick={(e) => handlePageCount(e)}>Next</button>
       </>
     );
   }
