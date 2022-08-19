@@ -1,0 +1,135 @@
+.adminDashboard body {
+  font-size: 12px !important;
+  background-color: black !important;
+  color: white;
+  padding: 30px 200px;
+}
+
+header {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+header h1 {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #ffffff;
+}
+
+p {
+  font-size: 12px !important;
+}
+button {
+  font-size: 12px !important;
+}
+header button {
+  background-color: #9bff00;
+  border-radius: 20px;
+  padding: 5px 30px;
+  color: #000000;
+
+  margin: 10px 0;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.leaderInfo {
+  display: flex;
+  justify-content: flex-start;
+  width: max-content;
+  background-color: #1d1d1d;
+  padding: 16px 20px;
+  height: 50px;
+  border-radius: 10px;
+}
+.leaderInfo p {
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.tags {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.tags p {
+  font-size: 12px !important;
+  margin-left: 2px;
+  min-width: 250px;
+  text-align: left;
+}
+
+.tile {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  border: 1px solid #ffffff1f;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 20px auto;
+}
+
+.tile img {
+  width: 100px;
+}
+
+.tile p {
+  font-size: 12px !important;
+  min-width: 200px;
+}
+
+.desc {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 500px;
+  margin-left: -250px;
+}
+.main .heading h1 {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 100;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.tile .desc p {
+  font-size: 20px;
+  font-weight: 100;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.submissions {
+  background-color: #9bff00;
+  color: #000000;
+  border-radius: 20px;
+  padding: 0 10px;
+  margin: 0 10px;
+}
+.logoutBtn {
+  display: flex;
+}
+.dotLeft {
+  font-size: large;
+  color: #696969;
+  width: 4px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+.dotRight {
+  font-size: large;
+  color: #696969;
+  width: 4px;
+  margin-top: -8px;
+  margin-right: 8px;
+}

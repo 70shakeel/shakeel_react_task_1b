@@ -1,7 +1,13 @@
 .App {
   text-align: center;
 }
-
+* {
+  margin: 0;
+}
+.px-5,
+.py-10 {
+  padding: 0 !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

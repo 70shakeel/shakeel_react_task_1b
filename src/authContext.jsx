@@ -14,10 +14,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
       //TODO
-      // console.log(action);
-      // state.user = action.user;
-      // state.token = action.token;
-      // state.role = action.role;
+
       return {
         ...state,
         isAuthenticated: action.payload.isAuthenticated,
