@@ -31,7 +31,7 @@ function renderRoutes(role) {
 
 function Main() {
   const { state } = React.useContext(AuthContext);
-
+  console.log("in main.js", state);
   return (
     <div className="h-full">
       <div className="flex w-full">

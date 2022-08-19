@@ -6,6 +6,8 @@ import MkdSDK from "../utils/MkdSDK";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext";
 
+import SnackBar from "../components/SnackBar";
+
 const AdminLoginPage = () => {
   const schema = yup
     .object({
@@ -27,7 +29,24 @@ const AdminLoginPage = () => {
 
   const onSubmit = async (data) => {
     let sdk = new MkdSDK();
+    const token = await localStorage.getItem("token");
     //TODO
+    const { email, password } = data;
+    const shak = await sdk.login(email, password);
+    if (sdk.check) {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          user: { email, password },
+
+          isAuthenticated: true,
+          role: "admin",
+          token,
+        },
+      });
+      navigate("/admin/dashboard");
+      <SnackBar />;
+    }
   };
 
   return (
