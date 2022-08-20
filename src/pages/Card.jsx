@@ -26,6 +26,7 @@ export const Card = ({
   author,
   likes,
 }) => {
+  console.log(`card index${index} card id${id}`);
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.CARD,

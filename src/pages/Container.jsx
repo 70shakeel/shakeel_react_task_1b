@@ -6,7 +6,7 @@ const style = {
   width: 400,
 };
 export const Container = () => {
-  const [items, setItems] = useState([]);
+  const [cards, setCards] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [isLoaded, setisLoaded] = useState(false);
   const [currentPage, setcurrentPage] = useState(0);
@@ -50,7 +50,7 @@ export const Container = () => {
         )
         .then((response) => {
           console.log("getData", response.data);
-          setItems(response.data.list);
+          setCards(response.data.list);
         });
     };
 
@@ -68,25 +68,25 @@ export const Container = () => {
         })
       );
     }, []);
-    const renderCard = useCallback((items, index) => {
+    const renderCard = useCallback((cards, index) => {
       return (
         <Card
-          key={items.id}
-          image={items.photo}
-          desc={items.title}
-          author={items.username}
-          likes={items.like}
+          key={cards.id}
+          image={cards.photo}
+          desc={cards.title}
+          author={cards.username}
+          likes={cards.like}
           index={index}
-          id={items.id}
+          id={cards.id}
           moveCard={moveCard}
         />
       );
     }, []);
-    console.log("items:", items);
+    console.log("cards:", cards);
     return (
       <>
         <div>
-          {items.length > 0 && items.map((item, i) => renderCard(item, i))}
+          {cards.length > 0 && cards.map((card, i) => renderCard(card, i))}
         </div>
         <button onClick={(e) => handlePageCount(e)}>Prev</button>
         <button onClick={(e) => handlePageCount(e)}>Next</button>

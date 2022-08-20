@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log("gloabl message", action.payload);
   switch (action.type) {
     case "SNACKBAR":
       return {

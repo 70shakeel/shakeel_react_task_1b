@@ -5,6 +5,7 @@ import * as yup from "yup";
 import MkdSDK from "../utils/MkdSDK";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext";
+import { GlobalContext } from "../globalContext";
 
 import SnackBar from "../components/SnackBar";
 
@@ -17,6 +18,8 @@ const AdminLoginPage = () => {
     .required();
 
   const { dispatch } = React.useContext(AuthContext);
+  const globalDispatch = React.useContext(GlobalContext);
+  const gDispatch = globalDispatch.dispatch;
   const navigate = useNavigate();
   const {
     register,
@@ -44,13 +47,14 @@ const AdminLoginPage = () => {
           token,
         },
       });
+      gDispatch({ type: "SNACKBAR", payload: { message: "Login successful" } });
       navigate("/admin/dashboard");
-      <SnackBar />;
     }
   };
 
   return (
     <div className="w-full max-w-xs mx-auto">
+      <SnackBar />;
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 "
