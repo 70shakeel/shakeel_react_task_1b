@@ -37,32 +37,19 @@ export const Container = () => {
         setcurrentPage(currentPage + 1);
       }
     }
-    console.log("event", e);
   };
 
   useEffect(() => {
     const payload = { page: currentPage, limit: 10 };
+
     const getData = async () => {
       let sdk = new MkdSDK();
-      const response = await sdk.callRestAPI(payload, "PAGINATE");
-      setCards(response.list);
-      // .then((res) => console.log("paginate mdsdk", res.data));
-      // console.log("response from paginate mdsdk", response);
-    };
-    // .then((res)=>console.log("paginate mdsdk",res.data);
-    // const response = await axios
-    //   .post(
-    //     "https://reacttask.mkdlabs.com/v1/api/rest/video/PAGINATE",
-    //     body,
-    //     {
-    //       headers,
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log("getData", response.data);
-    //     setCards(response.data.list);
-    //   });
+      sdk.setTable("video");
 
+      const response = await sdk.callRestAPI(payload, "PAGINATE");
+
+      setCards(response.list);
+    };
     getData();
   }, [currentPage]);
 
@@ -91,7 +78,6 @@ export const Container = () => {
         />
       );
     }, []);
-    console.log("cards:", cards);
     return (
       <>
         {cards.length == 0 && <div>Loading</div>}

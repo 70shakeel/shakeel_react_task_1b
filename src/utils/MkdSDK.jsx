@@ -15,14 +15,6 @@ export default function MkdSDK() {
   };
 
   this.login = async function (email, password, role) {
-    console.log(email, password);
-    //TODO
-    //POST Request for Login
-    // const body = {
-    //   email: "adminreacttask@manaknight.com",
-    //   password: "a123456",
-    //   role: "admin",
-    // };
     const body = {
       email: email,
       password: password,
@@ -40,7 +32,6 @@ export default function MkdSDK() {
       .then((response) => {
         //store response.data in LocalStorage
         localStorage.setItem("token", response.data.token);
-        console.log(response.data);
       });
   };
 
@@ -56,7 +47,6 @@ export default function MkdSDK() {
   };
 
   this.callRestAPI = async function (payload, method) {
-    console.log("payload from mdsdk", payload, "metthod from mdsdk", method);
     const header = {
       "Content-Type": "application/json",
       "x-project":
@@ -93,7 +83,7 @@ export default function MkdSDK() {
           payload.limit = 10;
         }
         const paginateResult = await fetch(
-          this._baseurl + `/v1/api/rest/${this._table}video/${method}`,
+          this._baseurl + `/v1/api/rest/${this._table}/${method}`,
           {
             method: "post",
             headers: header,
@@ -109,7 +99,7 @@ export default function MkdSDK() {
         if (paginateResult.status === 403) {
           throw new Error(jsonPaginate.message);
         }
-        console.log("JSON paginate:", jsonPaginate);
+
         return jsonPaginate;
       default:
         break;
@@ -137,10 +127,8 @@ export default function MkdSDK() {
       })
       .then((response) => response.status);
     if (response === 200) {
-      console.log("200 response");
       return response;
     } else {
-      console.log("else false");
       return false;
     }
   };

@@ -34,8 +34,6 @@ function Main() {
   const { state } = React.useContext(AuthContext);
   const userRole = localStorage.getItem("role");
   const isAuth = localStorage.getItem("isAuthenticated");
-  console.log("in main.js userRole:", userRole);
-  console.log("in main.js isAuthenticated:", isAuth);
 
   return (
     <div className="h-full">
