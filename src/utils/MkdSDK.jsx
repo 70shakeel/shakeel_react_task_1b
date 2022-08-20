@@ -12,6 +12,7 @@ export default function MkdSDK() {
 
   this.setTable = function (table) {
     this._table = table;
+    console.log("base64Encode: ", base64Encode);
   };
 
   this.login = async function (email, password, role) {
@@ -22,8 +23,7 @@ export default function MkdSDK() {
     };
     const headers = {
       "content-type": "application/json",
-      "x-project":
-        "cmVhY3R0YXNrOjVmY2h4bjVtOGhibzZqY3hpcTN4ZGRvZm9kb2Fjc2t5ZQ==",
+      "x-project": base64Encode,
     };
     const response = await axios
       .post("https://reacttask.mkdlabs.com/v2/api/lambda/login", body, {
