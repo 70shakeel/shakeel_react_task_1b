@@ -141,6 +141,6 @@ export default function MkdSDK() {
       return false;
     }
   };
-  this.check();
+
   return this;
 }

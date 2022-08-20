@@ -12,6 +12,7 @@ function renderRoutes(role) {
       return (
         <Routes>
           <Route
+            exact
             path="/admin/dashboard"
             element={<AdminDashboardPage />}
           ></Route>
@@ -31,15 +32,17 @@ function renderRoutes(role) {
 
 function Main() {
   const { state } = React.useContext(AuthContext);
-  console.log("in main.js", state);
+  const userRole = localStorage.getItem("role");
+  const isAuth = localStorage.getItem("isAuthenticated");
+  console.log("in main.js userRole:", userRole);
+  console.log("in main.js isAuthenticated:", isAuth);
+
   return (
     <div className="h-full">
       <div className="flex w-full">
         <div className="w-full">
           <div className="page-wrapper w-full">
-            {!state.isAuthenticated
-              ? renderRoutes("none")
-              : renderRoutes(state.role)}
+            {!isAuth ? renderRoutes("none") : renderRoutes(userRole)}
           </div>
         </div>
       </div>
