@@ -56,9 +56,11 @@ export default function MkdSDK() {
   };
 
   this.callRestAPI = async function (payload, method) {
+    console.log("payload from mdsdk", payload, "metthod from mdsdk", method);
     const header = {
       "Content-Type": "application/json",
-      "x-project": base64Encode,
+      "x-project":
+        "cmVhY3R0YXNrOjVmY2h4bjVtOGhibzZqY3hpcTN4ZGRvZm9kb2Fjc2t5ZQ==",
       Authorization: "Bearer " + localStorage.getItem("token"),
     };
 
@@ -91,7 +93,7 @@ export default function MkdSDK() {
           payload.limit = 10;
         }
         const paginateResult = await fetch(
-          this._baseurl + `/v1/api/rest/${this._table}/${method}`,
+          this._baseurl + `/v1/api/rest/${this._table}video/${method}`,
           {
             method: "post",
             headers: header,
@@ -107,6 +109,7 @@ export default function MkdSDK() {
         if (paginateResult.status === 403) {
           throw new Error(jsonPaginate.message);
         }
+        console.log("JSON paginate:", jsonPaginate);
         return jsonPaginate;
       default:
         break;

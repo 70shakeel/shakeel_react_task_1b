@@ -1,6 +1,8 @@
 import update from "immutability-helper";
 import { useCallback, useEffect, useState } from "react";
 import { Card } from "./Card.jsx";
+import MkdSDK from "../utils/MkdSDK";
+
 import axios from "axios";
 const style = {
   width: 400,
@@ -15,11 +17,11 @@ export const Container = () => {
     "x-project": "cmVhY3R0YXNrOjVmY2h4bjVtOGhibzZqY3hpcTN4ZGRvZm9kb2Fjc2t5ZQ==",
     Authorization: "Bearer " + localStorage.getItem("token"),
   };
-  const body = {
-    payload: {},
-    page: currentPage,
-    limit: 10,
-  };
+  // const body = {
+  //   payload: { page: currentPage, limit: 10 },
+  //   page: currentPage,
+  //   limit: 10,
+  // };
   const handlePageCount = (e) => {
     e.preventDefault();
     if (e.target.innerText == "Prev") {
@@ -39,20 +41,27 @@ export const Container = () => {
   };
 
   useEffect(() => {
+    const payload = { page: currentPage, limit: 10 };
     const getData = async () => {
-      const response = await axios
-        .post(
-          "https://reacttask.mkdlabs.com/v1/api/rest/video/PAGINATE",
-          body,
-          {
-            headers,
-          }
-        )
-        .then((response) => {
-          console.log("getData", response.data);
-          setCards(response.data.list);
-        });
+      let sdk = new MkdSDK();
+      const response = await sdk.callRestAPI(payload, "PAGINATE");
+      setCards(response.list);
+      // .then((res) => console.log("paginate mdsdk", res.data));
+      // console.log("response from paginate mdsdk", response);
     };
+    // .then((res)=>console.log("paginate mdsdk",res.data);
+    // const response = await axios
+    //   .post(
+    //     "https://reacttask.mkdlabs.com/v1/api/rest/video/PAGINATE",
+    //     body,
+    //     {
+    //       headers,
+    //     }
+    //   )
+    //   .then((response) => {
+    //     console.log("getData", response.data);
+    //     setCards(response.data.list);
+    //   });
 
     getData();
   }, [currentPage]);
@@ -85,6 +94,7 @@ export const Container = () => {
     console.log("cards:", cards);
     return (
       <>
+        {cards.length == 0 && <div>Loading</div>}
         <div>
           {cards.length > 0 && cards.map((card, i) => renderCard(card, i))}
         </div>
